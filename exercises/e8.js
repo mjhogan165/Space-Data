@@ -5,7 +5,9 @@ import { data } from "../data/data";
 // Return example: 'Planet Name'
 
 export function findPlanetNameByMoon(data, moonName) {
-  // Your code goes here...
+const hasMoons = data.planets.filter(x => x.moons).filter(x => x.moons.includes(moonName))
+return hasMoons.map(x => x.name)[0]
+
 }
 
 
