@@ -5,47 +5,50 @@ import { data } from "../data/data";
 // Return example: 1902
 
 export function getGreatestDiscoveryYear(data) {
-  const years = data.asteroids.map(x => x.discoveryYear)
-
-
-  years.sort(function compareFn(a, b) { 
-  if(a < b){return -1}
-    if(a>b){return 1}
-    if(a === b){
-      return 0
-    }
-  })
-  
-  let duplicates = []
-  years.sort(function compareFn(a, b) { 
-  if(a < b){return -1}
-    if(a>b){return 1}
-    if(a === b){
-      duplicates.push(a)
-      return 0
-    }
-  
-  })
-  
+  const years = data.asteroids.map((x) => x.discoveryYear);
   function maxBy(array, cb) {
-      array.sort((a, b) => cb(b) < cb(a) ? -1 : 1 )
-      return array[0]
+    array.sort((a, b) => (cb(b) < cb(a) ? -1 : 1));
+    return array[0];
   }
-  
-  function count(arr, value){
-    let counted = arr.filter(x => x === value)
-    return counted.length
+
+  function count(arr, value) {
+    let counted = arr.filter((x) => x === value);
+    return counted.length;
   }
-  
-  const countedArr = []
-  for(let elm of duplicates){
-    // let num = count(test, elm )
-    // console.log(count(duplicates, elm ))
-    countedArr.push({year: elm, count: count(duplicates, elm)})
+
+  years.sort(function compareFn(a, b) {
+    if (a < b) {
+      return -1;
+    }
+    if (a > b) {
+      return 1;
+    }
+    if (a === b) {
+      return 0;
+    }
+  });
+
+  let duplicates = [];
+  years.sort(function compareFn(a, b) {
+    if (a < b) {
+      return -1;
+    }
+    if (a > b) {
+      return 1;
+    }
+    if (a === b) {
+      duplicates.push(a);
+      return 0;
+    }
+  });
+
+  const countedArr = [];
+  for (let elm of duplicates) {
+    countedArr.push({ year: elm, count: count(duplicates, elm) });
   }
-  
-  const ans = maxBy(countedArr, x => x.count)
-  return ans.year
+
+  const ans = maxBy(countedArr, (x) => x.count);
+  return ans.year;
 }
 
 // === TEST YOURSELF ===
